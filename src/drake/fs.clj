@@ -6,6 +6,7 @@
             [drake.plugins :as plugins])
   (:use [slingshot.slingshot :only [throw+]]
         [clojure.string :only [join split]]
+        [clojure.tools.logging :only [debug]]
         drake-interface.core
         drake.shell
         drake.options)
@@ -382,7 +383,7 @@
         filesystem (or (FILESYSTEMS prefix)
                        (plugins/get-reified "drake.fs." prefix)
                        (FILESYSTEMS "file"))]
-    (println "drake fs.clj/get-fs: path=" path "returning:" filesystem)
+    (debug "fs.clj/get-fs: path=" path "returning:" filesystem)
     [filesystem prefix filename]))
 
 (defn fs

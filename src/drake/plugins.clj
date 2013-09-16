@@ -32,7 +32,10 @@
   "Loads onto the classpath all plugins specified in plugins configuration file f.
    f must be an EDN formatted file that reads to a hash-map with:
      :plugins       array of dependency tuples
-     :repositories  optional hash-map of Maven repos to use"
+     :repositories  optional hash-map of Maven repos to use
+
+   Returns nill regardless of whether the file is found.
+   (A missing file is taken to mean there's no plugin config desired.)"
   [f]
   (debug "looking for plugins conf file" (fs/absolute-path f))
   (when-let [conf (read-plugins-conf f)]
@@ -67,6 +70,6 @@
          (try+ ((resolve f-symbol))
                (catch java.io.FileNotFoundException e
                  (throw+ {:msg (str
-                                "There is no function named '%s' in the plugin namespace '%s'"
-                                "There is something hokey about that plugin."
+                                "Bad plugin: There is no function named '%s' in "
+                                "the plugin namespace '%s'"
                                 f-symbol-name ns-symbol-name)}))))))))
