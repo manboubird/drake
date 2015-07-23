@@ -9,6 +9,10 @@
 ; Or, if you have Drake installed, you can cd to this directory and just run drake.
 ;
 
+%include vars.drake
+
+test.$[VAR_TEST] <- 
+  echo $[VAR_TEST] > $OUTPUT
 
 ;
 ; Cleans up the skills file.
